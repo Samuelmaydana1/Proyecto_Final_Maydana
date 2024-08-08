@@ -28,14 +28,13 @@ cd Proyecto_Final_Maydana
 ### Crea un Entorno Virtual
 
 ```bash
-python -m venv env
-source env/bin/activate  # En Windows, usa `env\Scripts\activate`
+pip install pipenv
 ```
 
 ### Instala las Dependencias
 
 ```bash
-pip install -r requirements.txt
+pipenv install -r requirements.txt
 ```
 
 ### Configura la Base de Datos
@@ -43,6 +42,13 @@ pip install -r requirements.txt
 Si estás utilizando la base de datos SQLite (por defecto), no es necesario realizar configuraciones adicionales. Si usas otra base de datos, actualiza la configuración en `Proyecto_final/settings.py`.
 
 ### Realiza las Migraciones
+
+Primero, accede al entorno virtual creado por pipenv:
+
+```bash
+pipenv shell
+```
+Luego, ejecuta las migraciones:
 
 ```bash
 python manage.py migrate
