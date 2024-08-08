@@ -21,8 +21,8 @@ Esta aplicación web, desarrollada con Django, permite gestionar libros, autores
 ### Clona el Repositorio
 
 ```bash
-git clone https://github.com/Samuelmaydana1/Preentrega_3_SamuelMaydana.git
-cd Preentrega_3_SamuelMaydana
+git clone https://github.com/Samuelmaydana1/Proyecto_Final_Maydana.git
+cd Proyecto_Final_Maydana
 ```
 
 ### Crea un Entorno Virtual
@@ -40,7 +40,7 @@ pip install -r requirements.txt
 
 ### Configura la Base de Datos
 
-Si estás utilizando la base de datos SQLite (por defecto), no es necesario realizar configuraciones adicionales. Si usas otra base de datos, actualiza la configuración en `Preentrega_3_SamuelMaydana/settings.py`.
+Si estás utilizando la base de datos SQLite (por defecto), no es necesario realizar configuraciones adicionales. Si usas otra base de datos, actualiza la configuración en `Proyecto_final/settings.py`.
 
 ### Realiza las Migraciones
 
@@ -77,7 +77,7 @@ Abre tu navegador y visita [http://127.0.0.1:8000/](http://127.0.0.1:8000/) para
 
 ## Estructura del Proyecto
 
-- **Preentrega_3_SamuelMaydana/**: Directorio del proyecto principal.
+- **Proyecto_final/**: Directorio del proyecto principal.
   - `settings.py`: Configuración del proyecto Django.
   - `urls.py`: Rutas del proyecto.
   - `wsgi.py`: Punto de entrada WSGI para servidores de aplicaciones.
