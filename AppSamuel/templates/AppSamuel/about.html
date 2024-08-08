@@ -1,0 +1,53 @@
+{% extends 'AppSamuel/base.html' %}
+
+{% load static %}
+
+{% block title %} Sobre mí {% endblock title %}
+
+{% block main %}
+<div class="container my-5">
+    <h1 class="text-center mb-4">Sobre mí</h1>
+
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <h2 class="mb-0">Quién soy</h2>
+                </div>
+                <div class="card-body">
+                    <p>Hola, soy Samuel Maydana, un apasionado programador Python con 1 año de experiencia en desarrollo back-end. Mi objetivo es enfrentar y resolver los desafíos que surgen al desarrollar aplicaciones web.</p>
+                    <p>Durante mi carrera, he trabajado en proyectos que me han permitido adquirir habilidades en:</p>
+                    <ul>
+                        <li>Programación en Python</li>
+                        <li>Desarrollo de aplicaciones web con frameworks como Django</li>
+                        <li>Resolución de problemas complejos</li>
+                    </ul>
+                    <p>Me destaco por mi capacidad para resolver problemas y por mi enfoque orientado al cliente.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <h2 class="mb-0">Contacto</h2>
+                </div>
+                <div class="card-body">
+                    <p>Para cualquier consulta o si deseas ponerte en contacto conmigo, puedes hacerlo a través de los siguientes medios:</p>
+                    <ul>
+                        <li><strong>Correo electrónico:</strong> <a href="mailto:samuelmaydana1@gmail.com">samuelmaydana1@gmail.com</a></li>
+                        <li><strong>Teléfono:</strong> +54 351 3776006</li>
+                        <li><strong>Dirección:</strong> Calle Falsa 123, Córdoba, Argentina</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow-sm mt-4">
+        <div class="card-body text-center">
+            <p>Fuera del trabajo, disfruto de hacer running, lo que me ayuda a mantener un equilibrio saludable entre mi vida profesional y personal. Siempre estoy abierto a nuevas oportunidades y desafíos, así que no dudes en ponerte en contacto si quieres colaborar o hablar sobre desarrollo de aplicaciones web y programación en general.</p>
+        </div>
+    </div>
+</div>
+{% endblock main %}

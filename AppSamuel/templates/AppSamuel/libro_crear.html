@@ -1,0 +1,22 @@
+{% extends 'AppSamuel/base.html' %}
+
+{% load static %}
+
+{% block title %} Crear libro {% endblock title %}
+
+{% block main %}
+<div class="container mt-4">
+    <h2>Crear libro</h2>
+    <div class="card">
+        <div class="card-body">
+            <form action="" method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                    {{ form.as_p }}
+                </div>
+                    <button type="submit" class="btn btn-primary">Crear</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock main %}

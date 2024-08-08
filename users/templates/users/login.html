@@ -1,0 +1,38 @@
+{% extends 'AppSamuel/base.html' %}
+
+{% load static %}
+
+{% block title %} Login {% endblock title %}
+
+{% block main %}
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="w-100" style="max-width: 400px;">
+        <div class="card shadow-sm">
+            <div class="card-header text-center">
+                <h2 class="mb-0">Iniciar sesión</h2>
+            </div>
+            <div class="card-body">
+
+                {% if form.errors %}
+                <div class="alert alert-danger">
+                    Por favor, corrige los errores a continuación.
+                </div>
+                {% endif %}
+
+                <form action="{% url 'Login' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        {{ form.as_p }}
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer text-center">
+                <p class="mb-0">¿No tienes una cuenta? <a href="{% url 'Register' %}">Registrate aquí</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main %}

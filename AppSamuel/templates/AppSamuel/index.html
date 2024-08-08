@@ -1,0 +1,76 @@
+{% extends 'AppSamuel/base.html' %}
+
+{% block main %}
+<div class="container mt-4">
+    <h1>Buscar libros</h1>
+
+    <form action="{% url 'Inicio' %}" method="GET" class="mb-4">
+        <div class="input-group">
+            <input type="text" class="form-control" name="query" placeholder="Buscar por título, autor o categoría..." value="{{ query }}">
+            <button class="btn btn-primary" type="submit">Buscar</button>
+        </div>
+    </form>
+
+    {% if query %}
+        <div class="mt-4">
+            <h2>Resultados de búsqueda para "<span class="text-primary">{{ query }}</span>"</h2>
+
+            <div class="mt-4">
+                <h3>Libros</h3>
+                {% if libros %}
+                    <ul class="list-group">
+                        {% for libro in libros %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <div>
+                                    <strong>{{ libro.titulo }}</strong>
+                                    {% if libro.autor %} - Autor: {{ libro.autor.nombre }} {{ libro.autor.apellido }} {% endif %}
+                                    {% if libro.categoria %} - Categoría: {{ libro.categoria }}{% endif %}
+                                </div>
+                                <a href="{% url 'DetalleLibro' libro.id %}" class="btn btn-primary btn-sm">Ver detalle</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No se encontraron libros.</p>
+                {% endif %}
+            </div>
+
+            <div class="mt-4">
+                <h3>Autores</h3>
+                {% if autores %}
+                    <ul class="list-group">
+                        {% for autor in autores %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <div>
+                                    <strong>{{ autor.nombre }} {{ autor.apellido }}</strong>
+                                </div>
+                                <a href="{% url 'DetalleAutor' autor.id %}" class="btn btn-primary btn-sm">Ver detalle</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No se encontraron autores.</p>
+                {% endif %}
+            </div>
+
+            <div class="mt-4">
+                <h3>Categorías</h3>
+                {% if categorias %}
+                    <ul class="list-group">
+                        {% for categoria in categorias %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <div>
+                                    <strong>{{ categoria.categoria }}</strong>
+                                </div>
+                                <a href="{% url 'DetalleCategoria' categoria.id %}" class="btn btn-primary btn-sm">Ver detalle</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No se encontraron categorías.</p>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock main %}

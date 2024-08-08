@@ -1,0 +1,34 @@
+{% extends 'AppSamuel/base.html' %}
+
+{% load static %}
+
+{% block title %} Lista categorías {% endblock title %}
+
+{% block main %}
+<div class="container mt-4">
+    <h2>Lista de categorías</h2>
+
+    <form action="{% url 'NuevaCategoria' %}" method="GET" class="mb-4">
+        <button class="btn btn-primary btn-xl" type="submit">Nueva categoría</button>
+    </form>
+
+    {% if categorias %}
+    <div class="list-group">
+        {% for categoria in categorias %}
+        <div class="list-group-item d-flex justify-content-between align-items-center">
+            <span>Categoria: {{ categoria.categoria }}</span>
+            <div>
+                <a href="{% url 'DetalleCategoria' categoria.pk %}" class="btn btn-secondary btn-sm">Ver detalle</a>
+                <a href="{% url 'EditarCategoria' categoria.pk %}" class="btn btn-secondary btn-sm">Editar</a>
+                <a href="{% url 'BorrarCategoria' categoria.pk %}" class="btn btn-danger btn-sm">Borrar</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="alert alert-info" role="alert">
+        No hay categorías disponibles en este momento.
+    </div>
+    {% endif %}
+</div>
+{% endblock main %}

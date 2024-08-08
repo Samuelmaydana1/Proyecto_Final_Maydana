@@ -1,0 +1,32 @@
+{% extends 'AppSamuel/base.html' %}
+
+{% load static %}
+
+{% block title %} Cambiar contraseña {% endblock title %}
+
+{% block main %}
+    
+    <h1>Cambiar contraseña</h1>
+
+    <form action="" method="POST">
+        {% csrf_token %}
+
+        <table>
+            {% for field in form %}
+                <tr>
+                    <td>{{ field.label_tag }}</td>
+                    <td>{{ field }}</td>
+                    <td>{{ field.errors }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+
+        <div class="mb-3">
+            <input type="submit" value="Guardar cambios" class="btn btn-primary">
+            <a href="{% url 'Inicio' %}" class="btn btn-secondary">Cancelar</a>
+        </div>
+
+    </form>
+
+{% endblock main %}
+

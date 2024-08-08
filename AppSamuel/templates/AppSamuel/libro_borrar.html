@@ -1,0 +1,33 @@
+{% extends 'AppSamuel/base.html' %}
+
+{% load static %}
+
+{% block title %} Borrar libro {% endblock title %}
+
+{% block main %}
+<div class="container mt-4">
+    <h2>Eliminar libro</h2>
+    <form action="" method="POST">
+        {% csrf_token %}
+        
+        <div class="alert alert-danger" role="alert">
+            ¿Estás seguro que deseas borrar el libro <strong>{{ libro.titulo }}</strong> de <strong>{{ libro.autor.nombre }} {{ libro.autor.apellido }}</strong>?
+        </div>
+        
+        <div class="d-flex justify-content-end mt-3" id="action-buttons">
+            <button type="submit" class="btn btn-danger me-2">Eliminar</button>
+            <a href="{% url 'ListaLibros' %}" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Scroll hacia los botones de acción
+        var actionButtons = document.getElementById("action-buttons");
+        if (actionButtons) {
+            actionButtons.scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+</script>
+{% endblock main %}

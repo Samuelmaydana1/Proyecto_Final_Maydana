@@ -1,0 +1,19 @@
+{% extends 'AppSamuel/base.html' %}
+
+{% load static %}
+
+{% block title %} Detalle categoría {% endblock title %}
+
+{% block main %}
+<div class="container mt-4">
+    <h2>Detalle de la categoría</h2>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Categoría: <i>{{ categoria.categoria }}</i></h5>
+        </div>
+        <div class="card-footer text-center">
+            <a href="{% url 'ListaCategorias' %}" class="btn btn-secondary">Regresar</a>
+        </div>
+    </div>
+</div>
+{% endblock main%}

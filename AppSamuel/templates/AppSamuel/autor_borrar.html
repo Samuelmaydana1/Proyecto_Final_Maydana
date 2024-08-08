@@ -1,0 +1,23 @@
+{% extends 'AppSamuel/base.html' %}
+
+{% load static %}
+
+{% block title %} Borrar autor {% endblock title %}
+
+{% block main %}
+<div class="container mt-4">
+    <h2>Eliminar autor</h2>
+    <form action="" method="POST">
+        {% csrf_token %}
+        
+        <div class="alert alert-danger" role="alert">
+            Se eliminarán todos los libros asociados a este autor.¿Estás seguro que deseas borrar al autor <strong>{{ autor.nombre }} {{ autor.apellido }}</strong>?
+        </div>
+        
+        <div class="d-flex justify-content-end mt-3">
+            <button type="submit" class="btn btn-danger me-2">Eliminar</button>
+            <a href="{% url 'ListaAutores' %}" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock main %}

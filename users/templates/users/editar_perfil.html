@@ -1,0 +1,51 @@
+{% extends 'AppSamuel/base.html' %}
+
+{% load static %}
+
+{% block title %} Editar perfil {% endblock title %}
+
+{% block main %}
+    <h1>Editar perfil de {{ usuario.username }}</h1>
+
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            {% if avatar %}
+                <img src="{{ avatar.imagen.url }}" alt="Avatar actual" height="100" width="100" class="mb-3">
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="eliminar_avatar" name="eliminar_avatar">
+                    <label class="form-check-label" for="eliminar_avatar">Eliminar avatar</label>
+                </div>
+            {% else %}
+                <p>No tienes un avatar configurado.</p>
+            {% endif %}
+        </div>
+
+        <div class="mb-3">
+            {{ mi_form.first_name.label_tag }}
+            {{ mi_form.first_name }}
+        </div>
+        
+        <div class="mb-3">
+            {{ mi_form.last_name.label_tag }}
+            {{ mi_form.last_name }}
+        </div>
+
+        <div class="mb-3">
+            {{ mi_form.email.label_tag }}
+            {{ mi_form.email }}
+        </div>
+
+        <div class="mb-3">
+            {{ mi_form.imagen.label_tag }}
+            {{ mi_form.imagen }}
+            <small class="form-text text-muted">Selecciona una nueva imagen si deseas cambiar el avatar.</small>
+        </div>
+
+        <div class="mb-3">
+            <input type="submit" value="Guardar cambios" class="btn btn-primary">
+            <a href="{% url 'Inicio' %}" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+{% endblock main %}

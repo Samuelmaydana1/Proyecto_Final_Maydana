@@ -1,0 +1,21 @@
+{% extends 'AppSamuel/base.html' %}
+
+{% load static %}
+
+{% block title %} Editar libro {% endblock title %}
+
+{% block main %}
+<div class="container mt-4">
+    <h2 class="mb-4">Editar libro</h2>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            {{ form.as_p }}
+        </div>
+        <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a href="{% url 'ListaLibros' %}" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock main %}

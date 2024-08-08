@@ -1,0 +1,24 @@
+{% extends 'AppSamuel/base.html' %}
+
+{% load static %}
+
+{% block title %} Borrar categoría {% endblock title %}
+
+{% block main %}
+<div class="container mt-4">
+    <h2>Eliminar categoría</h2>
+    <form action="" method="POST">
+        {% csrf_token %}
+        
+        <div class="alert alert-danger" role="alert">
+            Se eliminarán todos los libros asociados a esta categoria.¿Estás seguro que deseas borrar la categoría <strong>{{ categoria.categoria }}</strong>?
+        </div>
+        
+        <div class="d-flex justify-content-end mt-3" id="action-buttons">
+            <button type="submit" class="btn btn-danger me-2">Eliminar</button>
+            <a href="{% url 'ListaCategorias' %}" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</div>
+
+{% endblock main %}
