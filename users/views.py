@@ -43,10 +43,8 @@ def editar_perfil(request):
         miFormulario = UserEditForm(request.POST, request.FILES, instance=usuario)
 
         if miFormulario.is_valid():
-            # Guarda los datos del formulario (esto también actualizará el usuario)
             miFormulario.save()
 
-            # Maneja la lógica para el avatar si es necesario
             imagen = miFormulario.cleaned_data.get('imagen')
             eliminar_avatar = miFormulario.cleaned_data.get('eliminar_avatar')
 
