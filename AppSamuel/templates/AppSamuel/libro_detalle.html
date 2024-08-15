@@ -13,6 +13,7 @@
             <p class="card-text"><strong>Autor:</strong> {{ libro.autor.nombre }} {{ libro.autor.apellido }}</p>
             <p class="card-text"><strong>Categoría:</strong> {{ libro.categoria.categoria }}</p>
             <p class="card-text"><strong>Año de publicación:</strong> {{ libro.año_de_publicacion }}</p>
+            <p class="card-text"><strong>Descripción:</strong><i style="color: #696969">{{ libro.descripcion }}</i></p>
         </div>
         <div class="card-footer text-center">
             <a href="{% url 'ListaLibros' %}" class="btn btn-secondary">Regresar</a>

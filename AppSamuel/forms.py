@@ -5,17 +5,17 @@ from datetime import datetime
 class AutorForm(forms.ModelForm):
     class Meta:
         model = Autor
-        fields = ['nombre', 'apellido']
+        fields = ['nombre', 'apellido', 'biografia']
 
 class CategoriaForm(forms.ModelForm):
     class Meta:
         model = Categoria
-        fields = ['categoria']
+        fields = ['categoria', 'descripcion']
 
 class LibroForm(forms.ModelForm):
     class Meta:
         model = Libro
-        fields = ['titulo', 'autor', 'categoria', 'año_de_publicacion']
+        fields = ['titulo', 'autor', 'categoria', 'año_de_publicacion', 'descripcion']
         widgets = {
             'año_de_publicacion': forms.NumberInput(attrs={'max': datetime.now().year}),
         }

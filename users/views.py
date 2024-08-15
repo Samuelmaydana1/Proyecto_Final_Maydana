@@ -1,9 +1,13 @@
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import PasswordChangeView
+from django.views.generic.edit import UpdateView
+from django.contrib.auth.models import User
+from django.views import View
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
-from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from users.forms import UserRegisterForm, UserEditForm
 from users.models import Avatar
@@ -35,50 +39,56 @@ def register(request):
     
     return render(request, "users/registro.html", {"form": form})
 
-@login_required
-def editar_perfil(request):
-    usuario = request.user
+class EditarPerfilView(LoginRequiredMixin, UpdateView):
+    model = User
+    form_class = UserEditForm
+    template_name = 'users/editar_perfil.html'
+    success_url = reverse_lazy('EditarPerfil')
 
-    if request.method == 'POST':
-        miFormulario = UserEditForm(request.POST, request.FILES, instance=usuario)
+    def get_object(self, queryset=None):
+        return self.request.user
 
-        if miFormulario.is_valid():
-            miFormulario.save()
+    def form_valid(self, form):
+        response = super().form_valid(form)
 
-            imagen = miFormulario.cleaned_data.get('imagen')
-            eliminar_avatar = miFormulario.cleaned_data.get('eliminar_avatar')
+        imagen = form.cleaned_data.get('imagen')
+        eliminar_avatar = form.cleaned_data.get('eliminar_avatar')
 
-            if imagen:
-                avatar, creado = Avatar.objects.get_or_create(user=usuario)
-                if not creado:
-                    if avatar.imagen and os.path.isfile(avatar.imagen.path):
-                        os.remove(avatar.imagen.path)
-                avatar.imagen = imagen
-                avatar.save()
+        if imagen:
+            avatar, creado = Avatar.objects.get_or_create(user=self.request.user)
+            if not creado:
+                if avatar.imagen and os.path.isfile(avatar.imagen.path):
+                    os.remove(avatar.imagen.path)
+            avatar.imagen = imagen
+            avatar.save()
 
-            if eliminar_avatar:
-                avatar = Avatar.objects.filter(user=usuario).first()
-                if avatar:
-                    if avatar.imagen and os.path.isfile(avatar.imagen.path):
-                        os.remove(avatar.imagen.path)
-                    avatar.delete()
+        if eliminar_avatar:
+            avatar = Avatar.objects.filter(user=self.request.user).first()
+            if avatar:
+                if avatar.imagen and os.path.isfile(avatar.imagen.path):
+                    os.remove(avatar.imagen.path)
+                avatar.delete()
 
-            return redirect('EditarPerfil')
+        return response
 
-    else:
-        miFormulario = UserEditForm(instance=usuario)
+class ConfirmarEliminacionView(LoginRequiredMixin, View):
+    template_name = 'users/confirmar_eliminacion.html'
 
-    avatar_actual = Avatar.objects.filter(user=usuario).first()
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)
 
-    return render(
-        request,
-        "users/editar_perfil.html",
-        {
-            "mi_form": miFormulario,
-            "usuario": usuario,
-            "avatar": avatar_actual
-        }
-    )
+    def post(self, request, *args, **kwargs):
+        usuario = request.user
+
+        avatar = Avatar.objects.filter(user=usuario).first()
+        if avatar:
+            if avatar.imagen and os.path.isfile(avatar.imagen.path):
+                os.remove(avatar.imagen.path)
+            avatar.delete()
+
+        usuario.delete()
+
+        return HttpResponseRedirect(reverse('Inicio'))
 
 class CambiarPassView(LoginRequiredMixin, PasswordChangeView):
 

@@ -39,17 +39,18 @@ class AutorListView(LoginRequiredMixin, ListView):
 class AutorDetailView(LoginRequiredMixin, DetailView):
     model = Autor
     template_name = "AppSamuel/autor_detalle.html"
+
 class AutorCreateView(LoginRequiredMixin, CreateView):
     model = Autor
     template_name = "AppSamuel/autor_crear.html"
     success_url = reverse_lazy("ListaAutores")
-    fields =  ["nombre", "apellido"]
+    fields =  ["nombre", "apellido", "biografia"]
 
 class AutorUpdateView(LoginRequiredMixin, UpdateView):
     model = Autor
     template_name = "AppSamuel/autor_editar.html"
     success_url = reverse_lazy("ListaAutores")
-    fields =  ["nombre", "apellido"]
+    fields =  ["nombre", "apellido", "biografia"]
 
 class AutorDeleteView(LoginRequiredMixin, DeleteView):
     model = Autor
@@ -70,13 +71,13 @@ class CategoriaCreateView(LoginRequiredMixin, CreateView):
     model = Categoria
     template_name = "AppSamuel/categoria_crear.html"
     success_url = reverse_lazy("ListaCategorias")
-    fields =  ["categoria"]
+    fields =  ["categoria", "descripcion"]
 
 class CategoriaUpdateView(LoginRequiredMixin, UpdateView):
     model = Categoria
     template_name = "AppSamuel/categoria_editar.html"
     success_url = reverse_lazy("ListaCategorias")
-    fields =  ["categoria"]
+    fields =  ["categoria", "descripcion"]
 
 class CategoriaDeleteView(LoginRequiredMixin, DeleteView):
     model = Categoria
@@ -97,13 +98,13 @@ class LibroCreateView(LoginRequiredMixin, CreateView):
     model = Libro
     template_name = "AppSamuel/libro_crear.html"
     success_url = reverse_lazy("ListaLibros")
-    fields =  ["titulo", "autor", "categoria", "año_de_publicacion"]
+    fields =  ["titulo", "autor", "categoria", "año_de_publicacion", "descripcion"]
 
 class LibroUpdateView(LoginRequiredMixin, UpdateView):
     model = Libro
     template_name = "AppSamuel/libro_editar.html"
     success_url = reverse_lazy("ListaLibros")
-    fields =  ["titulo", "autor", "categoria", "año_de_publicacion"]
+    fields =  ["titulo", "autor", "categoria", "año_de_publicacion", "descripcion"]
 
 class LibroDeleteView(LoginRequiredMixin, DeleteView):
     model = Libro

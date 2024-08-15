@@ -10,6 +10,7 @@
     <div class="card">
         <div class="card-body">
             <h5 class="card-title">Categoría: <i>{{ categoria.categoria }}</i></h5>
+            <h5 class="card-title">Descripción: <i style="color: #696969">{{ categoria.descripcion }}</i></h5> 
         </div>
         <div class="card-footer text-center">
             <a href="{% url 'ListaCategorias' %}" class="btn btn-secondary">Regresar</a>

@@ -4,7 +4,7 @@ import os
 
 class Avatar(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True)
-    imagen = models.ImageField(upload_to='avatares')
+    imagen = models.ImageField(upload_to='avatares/')
     class Meta:
         unique_together = (('user', 'imagen'),)
     

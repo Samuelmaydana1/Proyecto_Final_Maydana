@@ -2,50 +2,62 @@
 
 {% load static %}
 
-{% block title %} Editar perfil {% endblock title %}
+{% block title %}Editar perfil{% endblock title %}
 
 {% block main %}
-    <h1>Editar perfil de {{ usuario.username }}</h1>
+    <div class="container mt-4">
+        <h1>Editar perfil de {{ user.username }}</h1>
 
-    <form action="" method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
 
-        <div class="mb-3">
-            {% if avatar %}
-                <img src="{{ avatar.imagen.url }}" alt="Avatar actual" height="100" width="100" class="mb-3">
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="eliminar_avatar" name="eliminar_avatar">
-                    <label class="form-check-label" for="eliminar_avatar">Eliminar avatar</label>
-                </div>
-            {% else %}
-                <p>No tienes un avatar configurado.</p>
-            {% endif %}
-        </div>
+            <div class="mb-3">
+                {% if avatar and avatar.imagen %}
+                    <img src="{{ avatar.imagen.url }}" alt="Avatar actual" height="100" width="100" class="mb-3">
+                    <div class="form-check">
+                        {{ form.eliminar_avatar }}  {# Usar el campo de formulario directamente #}
+                        {{ form.eliminar_avatar.label_tag }}
+                    </div>
+                {% else %}
+                    <p>No tienes un avatar configurado.</p>
+                {% endif %}
+            </div>
 
-        <div class="mb-3">
-            {{ mi_form.first_name.label_tag }}
-            {{ mi_form.first_name }}
-        </div>
-        
-        <div class="mb-3">
-            {{ mi_form.last_name.label_tag }}
-            {{ mi_form.last_name }}
-        </div>
+            <div class="mb-3">
+                {{ form.first_name.label_tag }}
+                {{ form.first_name }}
+                {{ form.first_name.errors }}  {# Mostrar errores del campo #}
+            </div>
+            
+            <div class="mb-3">
+                {{ form.last_name.label_tag }}
+                {{ form.last_name }}
+                {{ form.last_name.errors }}  {# Mostrar errores del campo #}
+            </div>
 
-        <div class="mb-3">
-            {{ mi_form.email.label_tag }}
-            {{ mi_form.email }}
-        </div>
+            <div class="mb-3">
+                {{ form.email.label_tag }}
+                {{ form.email }}
+                {{ form.email.errors }}  {# Mostrar errores del campo #}
+            </div>
 
-        <div class="mb-3">
-            {{ mi_form.imagen.label_tag }}
-            {{ mi_form.imagen }}
-            <small class="form-text text-muted">Selecciona una nueva imagen si deseas cambiar el avatar.</small>
-        </div>
+            <div class="mb-3">
+                {{ form.imagen.label_tag }}
+                {{ form.imagen }}
+                {{ form.imagen.errors }}  {# Mostrar errores del campo #}
+                <small class="form-text text-muted">Selecciona una nueva imagen si deseas cambiar el avatar.</small>
+            </div>
 
-        <div class="mb-3">
-            <input type="submit" value="Guardar cambios" class="btn btn-primary">
-            <a href="{% url 'Inicio' %}" class="btn btn-secondary">Cancelar</a>
+            <div class="mb-3">
+                <input type="submit" value="Guardar cambios" class="btn btn-primary">
+                <a href="{% url 'EditarPerfil' %}" class="btn btn-secondary">Cancelar</a>
+                <a href="{% url 'Inicio' %}" class="btn btn-secondary">Regresar</a>
+            </div>
+        </form>
+
+        <div class="mt-4">
+            <a href="{% url 'ConfirmarEliminacion' %}" class="btn btn-danger">Eliminar perfil</a>
         </div>
-    </form>
+    </div>
 {% endblock main %}

@@ -11,8 +11,8 @@
         <div class="card-body">
             <h5 class="card-title">Nombre: <i>{{ autor.nombre }}</i></h5>
             <h5 class="card-title">Apellido: <i>{{ autor.apellido }}</i></h5>
-        </div>
-        <div class="card-footer text-center">
+            <h5 class="card-title">Biografía: <i style="color: #696969">{{ autor.biografia }}</i></h5>        
+            <div class="card-footer text-center">
             <a href="{% url 'ListaAutores' %}" class="btn btn-secondary">Regresar</a>
         </div>
     </div>

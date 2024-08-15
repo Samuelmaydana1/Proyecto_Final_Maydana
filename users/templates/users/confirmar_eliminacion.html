@@ -1,0 +1,19 @@
+{% extends 'AppSamuel/base.html' %}
+
+{% load static %}
+
+{% block title %} Confirmar Eliminación {% endblock title %}
+
+{% block main %}
+    <div class="container">
+        <h1>Confirmar Eliminación del Perfil</h1>
+        <div class="alert alert-danger" role="alert">
+            <strong>¡Advertencia!</strong> Estás a punto de eliminar tu perfil y todos tus datos asociados. Esta acción es irreversible.
+        </div>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Eliminar Perfil</button>
+            <a href="{% url 'EditarPerfil' %}" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+{% endblock main %}
