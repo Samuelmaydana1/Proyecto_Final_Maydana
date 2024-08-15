@@ -2,8 +2,8 @@ from django.urls import path
 from AppSamuel import views
 
 urlpatterns = [
-    path('', views.inicio, name='Inicio' ),
-    path('about', views.about, name='About'),
+    path('', views.InicioView.as_view(), name='Inicio' ),
+    path('about', views.AboutView.as_view(), name='About'),
 ]
 
 #Autor

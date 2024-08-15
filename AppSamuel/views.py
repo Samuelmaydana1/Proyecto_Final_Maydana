@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from django.views.generic import ListView
+from django.views import View
+from django.views.generic import ListView, TemplateView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -8,24 +9,32 @@ from django.urls import reverse_lazy
 from AppSamuel.models import Autor, Libro, Categoria
 
 
-def inicio(request):
-    query = request.GET.get('query', '')
-    libros = Libro.objects.filter(titulo__icontains=query)
-    autores = Autor.objects.filter(
-    Q(nombre__icontains=query) | Q(apellido__icontains=query))
-    categorias = Categoria.objects.filter(categoria__icontains=query)
+class InicioView(View):
+    def get(self, request, *args, **kwargs):
+        query = request.GET.get('query', '')
+
+        # Filtrado de libros, autores y categorías basado en la consulta
+        libros = Libro.objects.filter(titulo__icontains=query)
+        autores = Autor.objects.filter(
+            Q(nombre__icontains=query) | Q(apellido__icontains=query)
+        )
+        categorias = Categoria.objects.filter(categoria__icontains=query)
+
+        # Renderiza la plantilla con los resultados
+        return render(request, 'AppSamuel/index.html', {
+            'query': query,
+            'libros': libros,
+            'autores': autores,
+            'categorias': categorias
+        })
+
+class AboutView(TemplateView):
+    template_name = 'AppSamuel/about.html'
     
-
-    return render(request, 'AppSamuel/index.html', {
-        'query': query,
-        'libros': libros,
-        'autores': autores,
-        'categorias': categorias
-        
-    })
-
-def about(request):
-    return render(request, 'AppSamuel/about.html')
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['extra_info'] = 'Aquí puedes agregar información adicional'
+        return context
 
 # Vistas basadas en Clases - Autor
 class AutorListView(LoginRequiredMixin, ListView):
