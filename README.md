@@ -4,12 +4,12 @@
 
 Esta aplicación web, desarrollada con Django, permite gestionar libros, autores y categorías. Implementa el patrón MVT (Model-View-Template) y está diseñada para ser un sistema básico para agregar, buscar y listar libros, autores y categorías.
 
-## Funcionalidades
+## Funcionalidades Principales
 
-- **Autor**: Permite agregar nuevos autores a la base de datos.
-- **Categoría**: Permite agregar nuevas categorías para clasificar libros.
-- **Libro**: Permite agregar libros, asociándolos con un autor y una categoría.
-- **Inicio/Buscar Libros**: Permite buscar libros en la base de datos por título, autor o categoría.
+- **Autor**: Permite agregar nuevos autores, listar, editar y eliminar autores.
+- **Categoría**: Permite agregar nuevas categorías, listar, editar y eliminar categorías.
+- **Libro**: Permite agregar nuevos libros, listar, editar y eliminar libros, y asociarlos con autores y categorías existentes.
+- **Usuarios**: Permite gestionar el inicio de sesión, registro, edición de perfil y cambio de contraseña de los usuarios.
 
 ## Requisitos
 
@@ -30,6 +30,7 @@ cd Proyecto_Final_Maydana
 
 ```bash
 pip install pipenv
+pipenv install
 ```
 
 ### Instala las Dependencias
@@ -49,6 +50,7 @@ Primero, accede al entorno virtual creado por pipenv:
 ```bash
 pipenv shell
 ```
+
 Luego, ejecuta las migraciones:
 
 ```bash
@@ -73,15 +75,6 @@ python manage.py runserver
 
 Abre tu navegador y visita [http://127.0.0.1:8000/](http://127.0.0.1:8000/) para ver la aplicación en funcionamiento.
 
-## Uso
-
-### Funcionalidades Principales
-
-- **Buscar Libros**: Navega a [http://127.0.0.1:8000/](http://127.0.0.1:8000/) y usa el formulario para buscar libros por título, autor o categoría.
-- **Autor**: Navega a [http://127.0.0.1:8000/autor/nuevo/](http://127.0.0.1:8000/autor/nuevo/) y completa el formulario para agregar un nuevo autor.
-- **Categoría**: Navega a [http://127.0.0.1:8000/categoria/nuevo/](http://127.0.0.1:8000/categoria/nuevo/) y completa el formulario para agregar una nueva categoría.
-- **Libro**: Navega a [http://127.0.0.1:8000/libro/nuevo/](http://127.0.0.1:8000/libro/nuevo/) y completa el formulario para agregar un nuevo libro, seleccionando un autor y una categoría previamente agregados.
-
 ## Estructura del Proyecto
 
 - **Proyecto_final/**: Directorio del proyecto principal.
@@ -93,10 +86,114 @@ Abre tu navegador y visita [http://127.0.0.1:8000/](http://127.0.0.1:8000/) para
   - `views.py`: Definición de las vistas (funcionalidades).
   - `forms.py`: Formularios para la entrada de datos.
   - **`templates/`**: Plantillas HTML.
-  - `urls.py`: Rutas específicas de la aplicación.
+  - `urls.py`: Rutas específicas de la aplicación Samuel.
 - **users/**: Aplicación para la gestión de usuarios.
-  - `views.py`: Vistas relacionadas con el inicio de sesión, registro y cierre de sesión.
+  - `views.py`: Vistas relacionadas con el inicio de sesión, registro, edición de perfil y cambio de contraseña.
   - **`urls.py`**: Rutas específicas para la autenticación de usuarios.
+
+## Rutas de la Aplicación
+
+### Rutas de Usuarios
+
+- **Inicio de sesión**
+  - **URL:** `/login/`
+  - **Descripción:** Permite a los usuarios iniciar sesión en la aplicación.
+
+- **Registro de usuario**
+  - **URL:** `/register/`
+  - **Descripción:** Permite a los nuevos usuarios registrarse en la aplicación.
+
+- **Cierre de sesión**
+  - **URL:** `/logout/`
+  - **Descripción:** Permite a los usuarios cerrar sesión. Redirige a la página principal después del cierre.
+
+- **Edición de perfil**
+  - **URL:** `/editar_perfil/`
+  - **Descripción:** Permite a los usuarios editar su perfil.
+
+- **Confirmación de eliminación**
+  - **URL:** `/confirmar_eliminacion/`
+  - **Descripción:** Página para confirmar la eliminación de una cuenta.
+
+- **Cambio de contraseña**
+  - **URL:** `/cambiar_pass/`
+  - **Descripción:** Permite a los usuarios cambiar su contraseña.
+
+### Rutas de la Aplicación Samuel
+
+- **Inicio**
+  - **URL:** `/`
+  - **Descripción:** Página principal de la aplicación.
+
+- **Acerca de**
+  - **URL:** `/about`
+  - **Descripción:** Página que proporciona información sobre el autor.
+
+### Rutas de Autor
+
+- **Lista de autores**
+  - **URL:** `/autor/listar`
+  - **Descripción:** Muestra una lista de todos los autores.
+
+- **Nuevo autor**
+  - **URL:** `/autor/nuevo`
+  - **Descripción:** Formulario para añadir un nuevo autor.
+
+- **Detalle del autor**
+  - **URL:** `/autor/<int:pk>`
+  - **Descripción:** Muestra los detalles de un autor específico.
+
+- **Editar autor**
+  - **URL:** `/autor/<int:pk>/editar`
+  - **Descripción:** Formulario para editar la información de un autor existente.
+
+- **Borrar autor**
+  - **URL:** `/autor/<int:pk>/borrar`
+  - **Descripción:** Confirma y ejecuta la eliminación de un autor.
+
+### Rutas de Categoría
+
+- **Lista de categorías**
+  - **URL:** `/categoria/listar`
+  - **Descripción:** Muestra una lista de todas las categorías.
+
+- **Nueva categoría**
+  - **URL:** `/categoria/nuevo`
+  - **Descripción:** Formulario para añadir una nueva categoría.
+
+- **Detalle de categoría**
+  - **URL:** `/categoria/<int:pk>`
+  - **Descripción:** Muestra los detalles de una categoría específica.
+
+- **Editar categoría**
+  - **URL:** `/categoria/<int:pk>/editar`
+  - **Descripción:** Formulario para editar una categoría existente.
+
+- **Borrar categoría**
+  - **URL:** `/categoria/<int:pk>/borrar`
+  - **Descripción:** Confirma y ejecuta la eliminación de una categoría.
+
+### Rutas de Libro
+
+- **Lista de libros**
+  - **URL:** `/libro/listar`
+  - **Descripción:** Muestra una lista de todos los libros.
+
+- **Nuevo libro**
+  - **URL:** `/libro/nuevo`
+  - **Descripción:** Formulario para añadir un nuevo libro.
+
+- **Detalle del libro**
+  - **URL:** `/libro/<int:pk>`
+  - **Descripción:** Muestra los detalles de un libro específico.
+
+- **Editar libro**
+  - **URL:** `/libro/<int:pk>/editar`
+  - **Descripción:** Formulario para editar la información de un libro existente.
+
+- **Borrar libro**
+  - **URL:** `/libro/<int:pk>/borrar`
+  - **Descripción:** Confirma y ejecuta la eliminación de un libro.
 
 ## Contribución
 
