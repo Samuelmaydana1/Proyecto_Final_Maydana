@@ -8,26 +8,24 @@ from django.db.models import Q
 from django.urls import reverse_lazy
 from AppSamuel.models import Autor, Libro, Categoria
 
-
+# Inicio
 class InicioView(View):
     def get(self, request, *args, **kwargs):
         query = request.GET.get('query', '')
 
-        # Filtrado de libros, autores y categorías basado en la consulta
         libros = Libro.objects.filter(titulo__icontains=query)
         autores = Autor.objects.filter(
             Q(nombre__icontains=query) | Q(apellido__icontains=query)
         )
         categorias = Categoria.objects.filter(categoria__icontains=query)
 
-        # Renderiza la plantilla con los resultados
         return render(request, 'AppSamuel/index.html', {
             'query': query,
             'libros': libros,
             'autores': autores,
             'categorias': categorias
         })
-
+# About
 class AboutView(TemplateView):
     template_name = 'AppSamuel/about.html'
     
@@ -36,7 +34,7 @@ class AboutView(TemplateView):
         context['extra_info'] = 'Aquí puedes agregar información adicional'
         return context
 
-# Vistas basadas en Clases - Autor
+# Autor
 class AutorListView(LoginRequiredMixin, ListView):
     model = Autor
     context_object_name = "autores"
@@ -66,7 +64,7 @@ class AutorDeleteView(LoginRequiredMixin, DeleteView):
     template_name = "AppSamuel/autor_borrar.html"
     success_url = reverse_lazy("ListaAutores")
 
-# Vistas basadas en Clases - Categoria
+# Categoria
 class CategoriaListView(LoginRequiredMixin, ListView):
     model = Categoria
     context_object_name = "categorias"
@@ -93,7 +91,7 @@ class CategoriaDeleteView(LoginRequiredMixin, DeleteView):
     template_name = "AppSamuel/categoria_borrar.html"
     success_url = reverse_lazy("ListaCategorias")
 
-# Vistas basadas en Clases - Libro
+#Libro
 class LibroListView(LoginRequiredMixin, ListView):
     model = Libro
     context_object_name = "libros"

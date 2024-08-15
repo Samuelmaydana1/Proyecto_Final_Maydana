@@ -16,7 +16,7 @@
                 {% if avatar and avatar.imagen %}
                     <img src="{{ avatar.imagen.url }}" alt="Avatar actual" height="100" width="100" class="mb-3">
                     <div class="form-check">
-                        {{ form.eliminar_avatar }}  {# Usar el campo de formulario directamente #}
+                        {{ form.eliminar_avatar }}
                         {{ form.eliminar_avatar.label_tag }}
                     </div>
                 {% else %}
@@ -27,25 +27,25 @@
             <div class="mb-3">
                 {{ form.first_name.label_tag }}
                 {{ form.first_name }}
-                {{ form.first_name.errors }}  {# Mostrar errores del campo #}
+                {{ form.first_name.errors }}
             </div>
             
             <div class="mb-3">
                 {{ form.last_name.label_tag }}
                 {{ form.last_name }}
-                {{ form.last_name.errors }}  {# Mostrar errores del campo #}
+                {{ form.last_name.errors }} 
             </div>
 
             <div class="mb-3">
                 {{ form.email.label_tag }}
                 {{ form.email }}
-                {{ form.email.errors }}  {# Mostrar errores del campo #}
+                {{ form.email.errors }}
             </div>
 
             <div class="mb-3">
                 {{ form.imagen.label_tag }}
                 {{ form.imagen }}
-                {{ form.imagen.errors }}  {# Mostrar errores del campo #}
+                {{ form.imagen.errors }} 
                 <small class="form-text text-muted">Selecciona una nueva imagen si deseas cambiar el avatar.</small>
             </div>
 

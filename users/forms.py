@@ -23,7 +23,6 @@ class UserRegisterForm(UserCreationForm):
         if password1 and password2 and password1 != password2:
             self.add_error('password2', "Las contraseñas no coinciden")
 
-        # Check if the email is already in use (optional, if needed)
         email = cleaned_data.get("email")
         if User.objects.filter(email=email).exists():
             self.add_error('email', "Este correo electrónico ya está en uso")

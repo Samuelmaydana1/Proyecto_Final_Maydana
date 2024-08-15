@@ -9,7 +9,7 @@ class Autor(models.Model):
         return f"{self.nombre} {self.apellido}"
 
 class Categoria(models.Model):
-    categoria = models.CharField(max_length=100)
+    categoria = models.CharField(max_length=100, verbose_name="Categoría")
     descripcion = models.TextField(null=True, blank=True, verbose_name="Descripción")
 
     def __str__(self):
