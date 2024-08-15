@@ -34,10 +34,10 @@ class UserEditForm(UserChangeForm):
     password = None
     first_name = forms.CharField(label='Nombre', required=False)
     last_name = forms.CharField(label='Apellido', required=False)
-    email = forms.EmailField(label="Email:")
+    email = forms.EmailField(label="Email")
     imagen = forms.ImageField(label="Avatar", required=False)
     eliminar_avatar = forms.BooleanField(required=False, initial=False, label="Eliminar Avatar")
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'email', 'imagen', 'eliminar_avatar']
+        fields = ['first_name', 'last_name', 'email', 'imagen']
         # help_texts = {k:"" for k in fields}

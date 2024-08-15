@@ -9,7 +9,7 @@
     <h2>Crear libro</h2>
     <div class="card">
         <div class="card-body">
-            <form action="" method="POST">
+            <form action="" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="mb-3">
                     {{ form.as_p }}

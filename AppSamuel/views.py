@@ -1,12 +1,14 @@
-from django.shortcuts import render
 from django.views import View
 from django.views.generic import ListView, TemplateView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
+from django.shortcuts import render
 from django.urls import reverse_lazy
 from AppSamuel.models import Autor, Libro, Categoria
+from AppSamuel.forms import LibroForm 
+
 
 # Inicio
 class InicioView(View):
@@ -31,7 +33,6 @@ class AboutView(TemplateView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['extra_info'] = 'Aquí puedes agregar información adicional'
         return context
 
 # Autor
@@ -105,13 +106,27 @@ class LibroCreateView(LoginRequiredMixin, CreateView):
     model = Libro
     template_name = "AppSamuel/libro_crear.html"
     success_url = reverse_lazy("ListaLibros")
-    fields =  ["titulo", "autor", "categoria", "año_de_publicacion", "descripcion"]
+    fields =  ["titulo", "autor", "categoria", "año_de_publicacion", "descripcion", "imagen"]
 
 class LibroUpdateView(LoginRequiredMixin, UpdateView):
     model = Libro
+    form_class = LibroForm
     template_name = "AppSamuel/libro_editar.html"
     success_url = reverse_lazy("ListaLibros")
-    fields =  ["titulo", "autor", "categoria", "año_de_publicacion", "descripcion"]
+
+    def form_valid(self, form):
+        libro = form.save(commit=False)
+        
+        if libro.pk:
+            old_libro = Libro.objects.get(pk=libro.pk)
+            if old_libro.imagen and old_libro.imagen != libro.imagen:
+                old_libro.imagen.delete(save=False)
+
+        libro.save()
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        return super().form_invalid(form)
 
 class LibroDeleteView(LoginRequiredMixin, DeleteView):
     model = Libro

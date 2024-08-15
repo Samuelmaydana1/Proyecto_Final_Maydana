@@ -9,11 +9,22 @@
     <h2>Detalle del libro</h2>
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title">Título: <i>{{ libro.titulo }}</i></h5>
-            <p class="card-text"><strong>Autor:</strong> {{ libro.autor.nombre }} {{ libro.autor.apellido }}</p>
-            <p class="card-text"><strong>Categoría:</strong> {{ libro.categoria.categoria }}</p>
-            <p class="card-text"><strong>Año de publicación:</strong> {{ libro.año_de_publicacion }}</p>
-            <p class="card-text"><strong>Descripción:</strong><i style="color: #696969">{{ libro.descripcion }}</i></p>
+            <div class="row">
+                <div class="col-md-4 text-center">
+                    {% if libro.imagen %}
+                        <img src="{{ libro.imagen.url }}" alt="Imagen de {{ libro.titulo }}" class="img-fluid">
+                    {% else %}
+                        <p>No hay imagen disponible.</p>
+                    {% endif %}
+                </div>
+                <div class="col-md-8"> 
+                    <h5 class="card-title">Título: <i>{{ libro.titulo }}</i></h5>
+                    <p class="card-text"><strong>Autor:</strong> {{ libro.autor.nombre }} {{ libro.autor.apellido }}</p>
+                    <p class="card-text"><strong>Categoría:</strong> {{ libro.categoria.categoria }}</p>
+                    <p class="card-text"><strong>Año de publicación:</strong> {{ libro.año_de_publicacion }}</p>
+                    <p class="card-text"><strong>Descripción:</strong> <i style="color: #696969">{{ libro.descripcion }}</i></p>
+                </div>
+            </div>
         </div>
         <div class="card-footer text-center">
             <a href="{% url 'ListaLibros' %}" class="btn btn-secondary">Regresar</a>
