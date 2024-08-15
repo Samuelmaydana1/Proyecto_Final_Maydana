@@ -9,12 +9,13 @@ Esta aplicación web, desarrollada con Django, permite gestionar libros, autores
 - **Autor**: Permite agregar nuevos autores a la base de datos.
 - **Categoría**: Permite agregar nuevas categorías para clasificar libros.
 - **Libro**: Permite agregar libros, asociándolos con un autor y una categoría.
-- **Buscar Libros**: Permite buscar libros en la base de datos por título, autor o categoría.
+- **Inicio/Buscar Libros**: Permite buscar libros en la base de datos por título, autor o categoría.
 
 ## Requisitos
 
 - Python 3.11.9
 - Django 4.2
+- Pillow 10.4.0
 
 ## Instalación
 
