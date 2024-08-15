@@ -37,10 +37,9 @@ class RegisterView(View):
     def post(self, request):
         form = UserRegisterForm(request.POST)
         if form.is_valid():
-            form.save()  # Guarda el nuevo usuario
-            return redirect('Login')  # Redirige a la página de inicio de sesión
+            form.save() 
+            return redirect('Login')
         
-        # Si el formulario no es válido, vuelve a renderizar con errores
         return render(request, "users/registro.html", {"form": form})
 
 class EditarPerfilView(LoginRequiredMixin, UpdateView):
@@ -91,19 +90,15 @@ class ConfirmarEliminacionView(LoginRequiredMixin, View):
         if request.user.check_password(password):
             user = request.user
             
-            # Eliminar el avatar del usuario si existe
             try:
                 avatar = Avatar.objects.get(user=user)
                 if avatar.imagen and os.path.isfile(avatar.imagen.path):
-                    os.remove(avatar.imagen.path)  # Elimina el archivo de imagen
-                avatar.delete()  # Elimina la instancia de Avatar
+                    os.remove(avatar.imagen.path)
+                avatar.delete()
             except Avatar.DoesNotExist:
-                # Si no existe un avatar, simplemente continuar
                 pass
             
-            # Eliminar el perfil del usuario
             user.delete()
-            messages.success(request, "Tu perfil ha sido eliminado exitosamente.")
             return redirect('Register')
         else:
             messages.error(request, "La contraseña ingresada es incorrecta. Intenta de nuevo.")

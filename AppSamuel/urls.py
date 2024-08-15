@@ -6,7 +6,7 @@ urlpatterns = [
     path('about', views.AboutView.as_view(), name='About'),
 ]
 
-#Autor
+# Autor
 urlpatterns += [
     path('autor/listar', views.AutorListView.as_view(), name='ListaAutores'),
     path('autor/nuevo',views.AutorCreateView.as_view(), name='NuevoAutor'),
@@ -15,7 +15,7 @@ urlpatterns += [
     path('autor/<int:pk>/borrar',views.AutorDeleteView.as_view(), name='BorrarAutor')
 ]
 
-#Categoría
+# Categoría
 urlpatterns += [
     path('categoria/listar', views.CategoriaListView.as_view(), name='ListaCategorias'),
     path('categoria/nuevo',views.CategoriaCreateView.as_view(), name='NuevaCategoria'),
@@ -24,7 +24,7 @@ urlpatterns += [
     path('categoria/<int:pk>/borrar',views.CategoriaDeleteView.as_view(), name='BorrarCategoria')
 ]
 
-#Libro
+# Libro
 urlpatterns += [
     path('libro/listar', views.LibroListView.as_view(), name='ListaLibros'),
     path('libro/nuevo',views.LibroCreateView.as_view(), name='NuevoLibro'),
