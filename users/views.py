@@ -4,8 +4,7 @@ from django.contrib.auth.views import PasswordChangeView
 from django.views.generic.edit import UpdateView
 from django.contrib.auth.models import User
 from django.views import View
-from django.http import HttpResponseRedirect
-from django.urls import reverse
+from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from django.urls import reverse_lazy
@@ -13,8 +12,12 @@ from users.forms import UserRegisterForm, UserEditForm
 from users.models import Avatar
 import os
 
-def login_request(request):
-    if request.method == 'POST':
+class LoginView(View):
+    def get(self, request):
+        form = AuthenticationForm()
+        return render(request, "users/login.html", {"form": form})
+
+    def post(self, request):
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
             usuario = form.cleaned_data.get('username')
@@ -22,22 +25,23 @@ def login_request(request):
             user = authenticate(username=usuario, password=contrasenia)
             if user is not None:
                 login(request, user)
-                return redirect('Inicio') 
-    else:
-        form = AuthenticationForm()
-    
-    return render(request, "users/login.html", {"form": form})
+                return redirect('Inicio')
+        
+        return render(request, "users/login.html", {"form": form})
 
-def register(request):
-    if request.method == 'POST':
+class RegisterView(View):
+    def get(self, request):
+        form = UserRegisterForm()
+        return render(request, "users/registro.html", {"form": form})
+
+    def post(self, request):
         form = UserRegisterForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('Login')
-    else:
-        form = UserRegisterForm()
-    
-    return render(request, "users/registro.html", {"form": form})
+            form.save()  # Guarda el nuevo usuario
+            return redirect('Login')  # Redirige a la página de inicio de sesión
+        
+        # Si el formulario no es válido, vuelve a renderizar con errores
+        return render(request, "users/registro.html", {"form": form})
 
 class EditarPerfilView(LoginRequiredMixin, UpdateView):
     model = User
@@ -47,6 +51,11 @@ class EditarPerfilView(LoginRequiredMixin, UpdateView):
 
     def get_object(self, queryset=None):
         return self.request.user
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['avatar'] = Avatar.objects.filter(user=self.request.user).first()
+        return context
 
     def form_valid(self, form):
         response = super().form_valid(form)
@@ -72,23 +81,33 @@ class EditarPerfilView(LoginRequiredMixin, UpdateView):
         return response
 
 class ConfirmarEliminacionView(LoginRequiredMixin, View):
-    template_name = 'users/confirmar_eliminacion.html'
-
     def get(self, request, *args, **kwargs):
-        return render(request, self.template_name)
+        return render(request, 'users/confirmar_eliminacion.html')
 
     def post(self, request, *args, **kwargs):
-        usuario = request.user
+        password = request.POST.get('password')
 
-        avatar = Avatar.objects.filter(user=usuario).first()
-        if avatar:
-            if avatar.imagen and os.path.isfile(avatar.imagen.path):
-                os.remove(avatar.imagen.path)
-            avatar.delete()
-
-        usuario.delete()
-
-        return HttpResponseRedirect(reverse('Inicio'))
+        # Verificar la contraseña
+        if request.user.check_password(password):
+            user = request.user
+            
+            # Eliminar el avatar del usuario si existe
+            try:
+                avatar = Avatar.objects.get(user=user)
+                if avatar.imagen and os.path.isfile(avatar.imagen.path):
+                    os.remove(avatar.imagen.path)  # Elimina el archivo de imagen
+                avatar.delete()  # Elimina la instancia de Avatar
+            except Avatar.DoesNotExist:
+                # Si no existe un avatar, simplemente continuar
+                pass
+            
+            # Eliminar el perfil del usuario
+            user.delete()
+            messages.success(request, "Tu perfil ha sido eliminado exitosamente.")
+            return redirect('Register')
+        else:
+            messages.error(request, "La contraseña ingresada es incorrecta. Intenta de nuevo.")
+            return render(request, 'users/confirmar_eliminacion.html')
 
 class CambiarPassView(LoginRequiredMixin, PasswordChangeView):
 

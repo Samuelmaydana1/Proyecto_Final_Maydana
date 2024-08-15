@@ -10,10 +10,24 @@
         <div class="alert alert-danger" role="alert">
             <strong>¡Advertencia!</strong> Estás a punto de eliminar tu perfil y todos tus datos asociados. Esta acción es irreversible.
         </div>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
         <form method="post">
             {% csrf_token %}
+            <div class="mb-3">
+                <label for="password" class="form-label">Por favor, ingresa tu contraseña para confirmar:</label>
+                <input type="password" name="password" id="password" class="form-control" required>
+            </div>
             <button type="submit" class="btn btn-danger">Eliminar Perfil</button>
             <a href="{% url 'EditarPerfil' %}" class="btn btn-secondary">Cancelar</a>
         </form>
     </div>
 {% endblock main %}
+
