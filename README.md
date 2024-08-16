@@ -28,11 +28,11 @@ git clone https://github.com/Samuelmaydana1/Proyecto_Final_Maydana.git
 cd Proyecto_Final_Maydana
 ```
 
-### Crea un Entorno Virtual
+## Crea un Entorno Virtual
+### Instala Pipenv
 
 ```bash
 pip install pipenv
-pipenv install
 ```
 
 ### Instala las Dependencias
