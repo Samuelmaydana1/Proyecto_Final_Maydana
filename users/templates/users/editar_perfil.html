@@ -10,7 +10,6 @@
 
         <form action="" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-            {{ form.non_field_errors }}
 
             <div class="mb-3">
                 {% if avatar and avatar.imagen %}
@@ -27,25 +26,21 @@
             <div class="mb-3">
                 {{ form.first_name.label_tag }}
                 {{ form.first_name }}
-                {{ form.first_name.errors }}
             </div>
             
             <div class="mb-3">
                 {{ form.last_name.label_tag }}
                 {{ form.last_name }}
-                {{ form.last_name.errors }} 
             </div>
 
             <div class="mb-3">
                 {{ form.email.label_tag }}
                 {{ form.email }}
-                {{ form.email.errors }}
             </div>
 
             <div class="mb-3">
                 {{ form.imagen.label_tag }}
                 {{ form.imagen }}
-                {{ form.imagen.errors }} 
                 <small class="form-text text-muted">Selecciona una nueva imagen si deseas cambiar el avatar.</small>
             </div>
 
