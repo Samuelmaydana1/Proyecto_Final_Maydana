@@ -1,5 +1,7 @@
 # Web "Biblioteca" en Django
 
+[Link al video Demo de la App Web](https://youtu.be/CB-5ZLosrZY)
+
 ## Descripción
 
 Esta aplicación web, desarrollada con Django, permite gestionar libros, autores y categorías. Implementa el patrón MVT (Model-View-Template) y está diseñada para ser un sistema básico para agregar, buscar y listar libros, autores y categorías.
